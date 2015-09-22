@@ -9,6 +9,13 @@
       e.preventDefault();
     }
   });
+//TODO fix bug with counting!!!!
+  var num_es_clicked = 0;
+  var num_non_es_clicked = 0;
+  var red_rgb_val = "rgb(255, 0, 0)";
+  var black_rgb_val = "rgb(0, 0, 0)";
+  var line_through_text = "line-through";
+  var no_decoration_text = "none";
 
   $( document ).ready(function(){
 
@@ -16,6 +23,7 @@
 			var span=document.createElement("SPAN");
 			span.style.fontSize="xx-large";
 			span.style.cursor="pointer";
+      span.className = span.className + "clickable-letter";
 
 
 			var t=document.createTextNode(letter);
@@ -42,7 +50,49 @@
       for (var i=0;i<my_string.length;i++){ 
         makeLetter(my_string.charAt(i));
       }
+      /*
+        The specs require a total count of the number of e's crossed out as well as the 
+        number of other letters. This means that 
+          IF when an e is clicked and it color is  black and it has no textDecoration 
+            THEN we need to increment the e count 
+          ELSE IF the e is clicked and its color is red and the textDecoration is set to 
+          line-through 
+            then we need to decrememnt the total count.
 
+         IF a non e is clicked and it is a letter in the alphabet (capital or lowercase) 
+         and it's color is black and it has no textDecoration 
+            THEN we need to increment the non-e letter count. 
+         ELSE IF the capital/lowercase non e letter is clicked and it's style is red 
+         and it's textDecoration is line-through
+            THEN we need to decrement the non-e letter count.
+  var num_es_clicked = 0;
+  var num_non_es_clicked = 0;
+  var red_rgb_val = "rgb(255, 0, 0)";
+  var black_rgb_val = "rgb(0, 0, 0)";
+  var line_through_text = "line-through";
+  var no_decoration_text = "none";
+
+       */
+      $( ".clickable-letter" ).click(function() {
+         var element_color = $( this ).css("color"); 
+         var element_decoration = $( this ).css("text-decoration"); 
+         var letter_val = $( this ).html().toLowerCase(); 
+          
+        if (letter_val =="e" && element_color == red_rgb_val && element_decoration == line_through_text){
+          num_es_clicked = num_es_clicked + 1;
+          alert("e inc " + num_es_clicked);
+        } else if (letter_val = "e" && element_color == black_rgb_val && element_decoration == no_decoration_text) {
+          num_es_clicked = num_es_clicked - 1;
+          alert("e dec " + num_es_clicked);
+        }
+        if (letter_val != "e" && /^[a-z]+$/.test(letter_val)  && element_color == red_rgb_val && element_decoration == line_through_text){
+          num_non_es_clicked = num_non_es_clicked + 1;
+          alert("non inc " + num_non_es_clicked);
+        } else if (letter_val != "e" && /^[a-z]+$/.test(letter_val) && element_color == black_rgb_val && element_decoration == no_decoration_text){
+          num_non_es_clicked = num_non_es_clicked - 1;
+          alert("non dec " + num_non_es_clicked);
+        }
+      });
 
     });
 		</script>
