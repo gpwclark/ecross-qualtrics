@@ -2,9 +2,44 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<script src="js/ecross.js"></script>
-		<script>
-			
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+	
+  $( document ).ready(function(){
+
+			function makeLetter(letter){
+			var span=document.createElement("SPAN");
+			span.style.fontSize="xx-large";
+			span.style.cursor="pointer";
+
+
+			var t=document.createTextNode(letter);
+			span.appendChild(t);
+
+			span.onclick = 
+				   function(){
+					   if(span.style.color=="red"){
+							 span.style.color = "black";
+							 span.style.textDecoration="none";
+					   }
+					   else{
+							span.style.color="red";
+							span.style.textDecoration="line-through";
+					   }
+				   };
+			span.onselect="";
+			var oldParagraph = document.getElementById("text-area");
+			oldParagraph.appendChild(span);
+			};
+      
+      var my_string = $("#text-area").html();
+      $("#text-area").empty();
+      for (var i=0;i<my_string.length;i++){ 
+        makeLetter(my_string.charAt(i));
+      }
+
+
+    });
 		</script>
 		<style>
 		
@@ -13,7 +48,7 @@
 			color: rgb(86,160,211);
 		}
 		
-		#demo{
+		#text-area{
 			color:black;
 			font-family:"Arial", Arial, Sans-serif;
 		}
@@ -24,11 +59,19 @@
 
 	<body>
 
-		<table height="200px" width="40px">
+		<table width="80%">
 		<tr>
 		<td>
-		<pre id="demo" ></pre>
-		</td>
+		<p id="text-area" >
+			Lorem ipsum dolor sit amet,  consectetur adipisicing elit,  sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
+      ea commodo consequat. Duis aute irure dolor in reprehenderit in  
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+      sint occaecat cupidatat non proident, sunt in culpa qui  officia
+      deserunt mollit anim id est laborum.
+		</p>
+    </td>
 		</tr>
 		</table>
 
