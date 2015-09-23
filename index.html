@@ -4,78 +4,75 @@
 	<meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>
+
+  var num_es_clicked = 0;
+  var num_non_es_clicked = 0;
+  var red_rgb_val = "rgb(255, 0, 0)";
+  var total_num_es = 0;
+  
+  // This function prevents someone from being able to press ctrl + F
   $(window).keydown(function(e){
     if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) {
       e.preventDefault();
     }
   });
-//TODO fix bug with counting!!!!
-  var num_es_clicked = 0;
-  var num_non_es_clicked = 0;
-  var red_rgb_val = "rgb(255, 0, 0)";
-  var black_rgb_val = "rgb(0, 0, 0)";
-  var line_through_text = "line-through";
-  var no_decoration_text = "none";
 
   $( document ).ready(function(){
-
-			function makeLetter(letter){
-			var span=document.createElement("SPAN");
-			span.style.fontSize="xx-large";
-			span.style.cursor="pointer";
-      span.className = span.className + "clickable-letter";
-
-
-			var t=document.createTextNode(letter);
-			span.appendChild(t);
-
-			span.onclick = 
-				   function(){
-					   if(span.style.color=="red"){
-							 span.style.color = "black";
-							 span.style.textDecoration="none";
-					   }
-					   else{
-							span.style.color="red";
-							span.style.textDecoration="line-through";
-					   }
-				   };
-			span.onselect="";
-			var oldParagraph = document.getElementById("text-area");
-			oldParagraph.appendChild(span);
-			};
       
+     /* This function takes a character and makes it into a dynamic clickable
+      * character that behaves according to the e-cross specs.
+      */
+      function makeAndAppendEcrossLetter(letter){
+          var span=document.createElement("SPAN");
+          span.style.fontSize="xx-large";
+          span.style.cursor="pointer";
+          span.className = span.className + "clickable-letter";
+
+          var t=document.createTextNode(letter);
+          span.appendChild(t);
+
+          span.onclick = 
+               function(){
+                 if(span.style.color=="red"){
+                   span.style.color = "black";
+                   span.style.textDecoration="none";
+                 }
+                 else{
+                  span.style.color="red";
+                  span.style.textDecoration="line-through";
+                 }
+               };
+          span.onselect="";
+          var oldParagraph = document.getElementById("text-area");
+          oldParagraph.appendChild(span);
+      };
+    
+      /* These two lines grab the text from the text area and then clear the text area.
+       * We could have just made it a JS string variable, but to make it easier for
+       * the end user they can just copy and paste into the text area.
+       */
       var my_string = $("#text-area").html();
       $("#text-area").empty();
+
+      /* This function uses the string attained in the line above and feeds it
+       * to makeAndAppendEcrossLetter in order to make a valid ecross letter
+       * and append it to the text-area. 
+       */
+      var current_char;
       for (var i=0;i<my_string.length;i++){ 
-        makeLetter(my_string.charAt(i));
+        current_char = my_string.charAt(i);
+        makeAndAppendEcrossLetter(current_char);
+        if(current_char == "e"){
+          total_num_es = total_num_es + 1;
+        }
       }
-      /*
-        The specs require a total count of the number of e's crossed out as well as the 
-        number of other letters. This means that 
-          IF when an e is clicked and it color is  black and it has no textDecoration 
-            THEN we need to increment the e count 
-          ELSE IF the e is clicked and its color is red and the textDecoration is set to 
-          line-through 
-            then we need to decrememnt the total count.
 
-         IF a non e is clicked and it is a letter in the alphabet (capital or lowercase) 
-         and it's color is black and it has no textDecoration 
-            THEN we need to increment the non-e letter count. 
-         ELSE IF the capital/lowercase non e letter is clicked and it's style is red 
-         and it's textDecoration is line-through
-            THEN we need to decrement the non-e letter count.
-  var num_es_clicked = 0;
-  var num_non_es_clicked = 0;
-  var red_rgb_val = "rgb(255, 0, 0)";
-  var black_rgb_val = "rgb(0, 0, 0)";
-  var line_through_text = "line-through";
-  var no_decoration_text = "none";
 
+      /* This function handles the logic to keep track of the current count
+       * of e's that have been clicked and non-es that have been clicked.
        */
       $( ".clickable-letter" ).click(function() {
          var element_color = $( this ).css("color"); 
-         var element_decoration = $( this ).css("text-decoration"); 
          var letter_val = $( this ).html().toLowerCase(); 
          var is_letter = false; 
 
@@ -103,34 +100,32 @@
                 num_non_es_clicked = num_non_es_clicked - 1;
               }
             }
-
           }
       });
 
-    });
+    }); // end doc ready
 		</script>
 		<style>
 		
-		table{
-			border:3px solid;
-			color: rgb(86,160,211);
-		}
-		
-		#text-area{
-			color:black;
-			font-family:"Arial", Arial, Sans-serif;
-		}
-  
-    .noselect {
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-       user-select: none;
-    }
-   
-		
+      table{
+        border:3px solid;
+        color: rgb(86,160,211);
+      }
+      
+      #text-area{
+        color:black;
+        font-family:"Arial", Arial, Sans-serif;
+      }
+    
+      .noselect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+         user-select: none;
+      }
+
 		</style>
 		<title>E-Cross Task</title>
 	</head>
