@@ -4,11 +4,14 @@
 	<meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>
+//TODO get  regex down so I can use the makeletter function to dynamically add
+//     a class to the high depletion es.
 
   var num_es_clicked = 0;
   var num_non_es_clicked = 0;
   var red_rgb_val = "rgb(255, 0, 0)";
   var total_num_es = 0;
+  var high_depletion_check_string = "";
   
   // This function prevents someone from being able to press ctrl + F
   $(window).keydown(function(e){
@@ -54,6 +57,18 @@
       var my_string = $("#text-area").html();
       $("#text-area").empty();
 
+      $( "#check_high_depletion" ).click(function() {
+
+        var split_string = my_string.split(" ");
+        var re_eAndVowel = /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i;
+        var re =;
+
+        for (var i = 0; i < split_string.length; i++){
+          split_string[i] = split_string[i].replace(re,"#e#" + "$1");
+          split_string[i].trim();
+          console.log(split_string[i]);
+        }
+      });
       /* This function uses the string attained in the line above and feeds it
        * to makeAndAppendEcrossLetter in order to make a valid ecross letter
        * and append it to the text-area. 
@@ -62,10 +77,11 @@
       for (var i=0;i<my_string.length;i++){ 
         current_char = my_string.charAt(i);
         makeAndAppendEcrossLetter(current_char);
-        if(current_char == "e"){
+        if(current_char.toLowerCase() == "e"){
           total_num_es = total_num_es + 1;
         }
       }
+      alert(total_num_es);
 
 
       /* This function handles the logic to keep track of the current count
@@ -75,7 +91,6 @@
          var element_color = $( this ).css("color"); 
          var letter_val = $( this ).html().toLowerCase(); 
          var is_letter = false; 
-
          if (/^[a-z]+$/.test(letter_val)){
             is_letter = true;
          }
@@ -135,14 +150,58 @@
 		<table width="80%">
 		<tr>
 		<td>
+    <button id="check_high_depletion"> Grade </button>
+    </br></br>
 		<p id="text-area" class="noselect">
-			Lorem ipsum dolor sit amet,  consectetur adipisicing elit,  sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
-      ea commodo consequat. Duis aute irure dolor in reprehenderit in  
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-      sint occaecat cupidatat non proident, sunt in culpa qui  officia
-      deserunt mollit anim id est laborum.
+
+So feel been kept be at gate. Be september it extensive oh concluded of certainty.
+In read most gate at body held it ever no. Talking justice welcome message 
+inquiry in started of am me. Led own hearted highest visited lasting sir 
+through compass his. Guest tiled he quick by so these trees am. It 
+announcing alteration at surrounded comparison by day sufficient everything. 
+Assure polite his really and others figure though. Day age advantages end 
+sufficient eat expression travelling. Of on am father by agreed supply rather 
+either. Own handsome delicate its property mistress her end appetite. Mean are 
+sons too sold nor said. Son share three men power boy you. Now merits wonder 
+effect garret own. Tiled say decay spoil now walls meant house. My mr interest
+thoughts screened of outweigh removing. Evening society musical besides inhabit 
+ye my. Lose hill well up will he over on. Increasing sufficient everything men 
+him admiration unpleasing sex. Around really his use uneasy longer him man. His 
+our pulled nature elinor talked now for excuse result. Admitted add peculiar get
+joy doubtful. Turned it up should no valley cousin he. Speaking numerous ask did 
+horrible packages set. Ashamed herself has distant can studied mrs. Led 
+therefore its middleton perpetual fulfilled provision frankness. Small he drawn
+after among every three no. All having but you edward genius though remark one. 
+Admiration we surrounded possession frequently he. Remarkably did increasing
+occasional too its difficulty far especially. Known tiled but sorry joy balls.
+Bed sudden manner indeed fat now feebly. Face do with in need of wife paid that
+be. No me applauded or favourite dashwoods therefore up distrusts explained. 
+Old education him departure any arranging one prevailed. Their end whole 
+might began her. Behaved the comfort another fifteen eat. Partiality had his
+themselves ask pianoforte increasing discovered. So mr delay at since place 
+whole above miles. He to observe conduct at detract because. Way ham unwilling
+not breakfast furniture explained perpetual. Or mr surrounded conviction so 
+astonished literature. Songs to an blush woman be sorry young. We certain as 
+removal attempt. Now eldest new tastes plenty mother called misery get. 
+Longer excuse for county nor except met its things. Narrow enough sex moment 
+desire are. Hold who what come that seen read age its. Contained or estimable 
+earnestly so perceived. Imprudence he in sufficient cultivated. Delighted 
+promotion improving acuteness an newspaper offending he. Misery in am secure 
+theirs giving an. Design on longer thrown oppose am. 
+Up unpacked friendly ecstatic so possible humoured do. Ample end might folly 
+quiet one set spoke her. We no am former valley assure. Four need spot ye said
+we find mile. Are commanded him convinced dashwoods did estimable forfeited. 
+Shy celebrated met sentiments she reasonably but. Proposal its disposed eat 
+advanced marriage sociable. Drawings led greatest add subjects endeavor gay 
+remember. Principles one yet assistance you met impossible. 
+Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on 
+my jointure horrible margaret suitable he followed speedily. Indeed vanity 
+excuse or mr lovers of on. By offer scale an stuff. Blush be sorry no sight.
+Sang lose of hour then he left find. Old there any widow law rooms. Agreed 
+but expect repair she nay sir silent person. Direction can dependent one bed 
+situation attempted. His she are man their spite avoid. Her pretended fulfilled 
+extremely education yet. Satisfied did one admitting incommode tolerably how are. 
+
 		</p>
     </td>
 		</tr>
