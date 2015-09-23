@@ -61,7 +61,7 @@
 
         var split_string = my_string.split(" ");
         var re_eAndVowel = /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i;
-        var re =;
+        var re_last_e = /e(?=[^e]*$)/i;
 
         for (var i = 0; i < split_string.length; i++){
           split_string[i] = split_string[i].replace(re,"#e#" + "$1");
