@@ -77,21 +77,34 @@
          var element_color = $( this ).css("color"); 
          var element_decoration = $( this ).css("text-decoration"); 
          var letter_val = $( this ).html().toLowerCase(); 
-          
-        if (letter_val =="e" && element_color == red_rgb_val && element_decoration == line_through_text){
-          num_es_clicked = num_es_clicked + 1;
-          alert("e inc " + num_es_clicked);
-        } else if (letter_val = "e" && element_color == black_rgb_val && element_decoration == no_decoration_text) {
-          num_es_clicked = num_es_clicked - 1;
-          alert("e dec " + num_es_clicked);
-        }
-        if (letter_val != "e" && /^[a-z]+$/.test(letter_val)  && element_color == red_rgb_val && element_decoration == line_through_text){
-          num_non_es_clicked = num_non_es_clicked + 1;
-          alert("non inc " + num_non_es_clicked);
-        } else if (letter_val != "e" && /^[a-z]+$/.test(letter_val) && element_color == black_rgb_val && element_decoration == no_decoration_text){
-          num_non_es_clicked = num_non_es_clicked - 1;
-          alert("non dec " + num_non_es_clicked);
-        }
+         var is_letter = false; 
+
+         if (/^[a-z]+$/.test(letter_val)){
+            is_letter = true;
+         }
+        
+         if (is_letter){
+            if (letter_val == "e"){
+              if (element_color == red_rgb_val){
+                // inc es
+                num_es_clicked = num_es_clicked + 1;
+
+              } else {
+                // dec es
+                num_es_clicked = num_es_clicked - 1;
+              }
+            } else {
+
+              if (element_color == red_rgb_val){
+                // inc non es
+                num_non_es_clicked = num_non_es_clicked + 1;
+              } else {
+                //dec non es
+                num_non_es_clicked = num_non_es_clicked - 1;
+              }
+            }
+
+          }
       });
 
     });
