@@ -59,16 +59,65 @@
 
       $( "#check_high_depletion" ).click(function() {
 
-        var split_string = my_string.split(" ");
-        var re_eAndVowel = /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i;
-        var re_last_e = /e(?=[^e]*$)/i;
+         //TODO is the .css property necessary on these guys?
+         var is_high_depletion;
+        $( ".clickable-letter" ).each(function( index) {
+          var curr_text = $(this).text().toLowerCase();
+          var next = $(this).next().css("class","clickable-letter").text().toLowerCase();
+          var next_next = $(this).next().next().css("class","clickable-letter").text().toLowerCase();
+          var prev = $(this).prev().css("class","clickable-letter").text().toLowerCase();
+          var prev_prev = $(this).prev().prev().css("class","clickable-letter").text().toLowerCase();
+          console.log("letter: " + curr_text + ":: two before: " + prev + " " + prev_prev + ":: two after: " + next + " " + next_next);
 
-        for (var i = 0; i < split_string.length; i++){
-          split_string[i] = split_string[i].replace(re,"#e#" + "$1");
-          split_string[i].trim();
-          console.log(split_string[i]);
-        }
+          // THIS LOGIC IS WRONG< space is not invalid input, it just needs to be factored in so nextnext
+          // and prev prev don't look at vowels in new words.
+          is_high_depletion = true;
+          if (curr_text == 'e'){
+            $(this).css("color","green");
+            /* cases, could be first second third letter, or alst letter, 2nd last, 3rd last.
+             *
+             */
+            if(is_not_vowel(next) && is_not_vowel(prev)){
+              //need to make sure that next and prev aren't spaces before we check nextnext and prevprev
+              if(is_not_whitespace(next)){
+                if(!is_not_vowel(next_next)){
+                  is_high_depletion = false;
+                }
+              }
+             if(is_not_whitespace(prev)){
+                if(!is_not_vowel(prev_prev)){
+                 is_high_depletion = false; 
+                }
+             }
+            } else {
+              is_high_depletion = false;
+            }
+
+            if(is_high_depletion){
+              $(this).addClass("high-depletion-e");  
+              $(this).css("color","blue");  
+            }
+          }// end of is e
+        });
+
       });
+
+      function is_not_whitespace(letter){
+        if (/\s/.test(letter)){
+          return false; 
+        } else {
+          return true;
+        }
+      }
+      
+      function is_not_vowel(letter){
+        if (/[aeiou]/i.test(letter)){
+          return false; 
+        } else {
+          return true;
+        }
+      }
+
       /* This function uses the string attained in the line above and feeds it
        * to makeAndAppendEcrossLetter in order to make a valid ecross letter
        * and append it to the text-area. 
@@ -81,7 +130,6 @@
           total_num_es = total_num_es + 1;
         }
       }
-      alert(total_num_es);
 
 
       /* This function handles the logic to keep track of the current count
@@ -154,53 +202,20 @@
     </br></br>
 		<p id="text-area" class="noselect">
 
-So feel been kept be at gate. Be september it extensive oh concluded of certainty.
-In read most gate at body held it ever no. Talking justice welcome message 
-inquiry in started of am me. Led own hearted highest visited lasting sir 
-through compass his. Guest tiled he quick by so these trees am. It 
-announcing alteration at surrounded comparison by day sufficient everything. 
-Assure polite his really and others figure though. Day age advantages end 
-sufficient eat expression travelling. Of on am father by agreed supply rather 
-either. Own handsome delicate its property mistress her end appetite. Mean are 
-sons too sold nor said. Son share three men power boy you. Now merits wonder 
-effect garret own. Tiled say decay spoil now walls meant house. My mr interest
-thoughts screened of outweigh removing. Evening society musical besides inhabit 
-ye my. Lose hill well up will he over on. Increasing sufficient everything men 
-him admiration unpleasing sex. Around really his use uneasy longer him man. His 
-our pulled nature elinor talked now for excuse result. Admitted add peculiar get
-joy doubtful. Turned it up should no valley cousin he. Speaking numerous ask did 
-horrible packages set. Ashamed herself has distant can studied mrs. Led 
-therefore its middleton perpetual fulfilled provision frankness. Small he drawn
-after among every three no. All having but you edward genius though remark one. 
-Admiration we surrounded possession frequently he. Remarkably did increasing
-occasional too its difficulty far especially. Known tiled but sorry joy balls.
-Bed sudden manner indeed fat now feebly. Face do with in need of wife paid that
-be. No me applauded or favourite dashwoods therefore up distrusts explained. 
-Old education him departure any arranging one prevailed. Their end whole 
-might began her. Behaved the comfort another fifteen eat. Partiality had his
-themselves ask pianoforte increasing discovered. So mr delay at since place 
-whole above miles. He to observe conduct at detract because. Way ham unwilling
-not breakfast furniture explained perpetual. Or mr surrounded conviction so 
-astonished literature. Songs to an blush woman be sorry young. We certain as 
-removal attempt. Now eldest new tastes plenty mother called misery get. 
-Longer excuse for county nor except met its things. Narrow enough sex moment 
-desire are. Hold who what come that seen read age its. Contained or estimable 
-earnestly so perceived. Imprudence he in sufficient cultivated. Delighted 
-promotion improving acuteness an newspaper offending he. Misery in am secure 
-theirs giving an. Design on longer thrown oppose am. 
-Up unpacked friendly ecstatic so possible humoured do. Ample end might folly 
-quiet one set spoke her. We no am former valley assure. Four need spot ye said
-we find mile. Are commanded him convinced dashwoods did estimable forfeited. 
-Shy celebrated met sentiments she reasonably but. Proposal its disposed eat 
-advanced marriage sociable. Drawings led greatest add subjects endeavor gay 
-remember. Principles one yet assistance you met impossible. 
-Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on 
-my jointure horrible margaret suitable he followed speedily. Indeed vanity 
-excuse or mr lovers of on. By offer scale an stuff. Blush be sorry no sight.
-Sang lose of hour then he left find. Old there any widow law rooms. Agreed 
-but expect repair she nay sir silent person. Direction can dependent one bed 
-situation attempted. His she are man their spite avoid. Her pretended fulfilled 
-extremely education yet. Satisfied did one admitting incommode tolerably how are. 
+ok text please
+It as announcing it me stimulated frequently continuing. Least their she you now above going stand forth. He pretty future afraid should genius spirit on. Set property addition building put likewise get. Of will at sell well at as. Too want but tall nay like old. Removing yourself be in answered he. Consider occasion get improved him she eat. Letter by lively oh denote an. 
+
+Alteration literature to or an sympathize mr imprudence. Of is ferrars subject as enjoyed or tedious cottage. Procuring as in resembled by in agreeable. Next long no gave mr eyes. Admiration advantages no he celebrated so pianoforte unreserved. Not its herself forming charmed amiable. Him why feebly expect future now. 
+
+Unpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. Stairs ladies friend by in mutual an no. Mr hence chief he cause. Whole no doors on hoped. Mile tell if help they ye full name. 
+
+Any delicate you how kindness horrible outlived servants. You high bed wish help call draw side. Girl quit if case mr sing as no have. At none neat am do over will. Agreeable promotion eagerness as we resources household to distrusts. Polite do object at passed it is. Small for ask shade water manor think men begin. 
+
+Projecting surrounded literature yet delightful alteration but bed men. Open are from long why cold. If must snug by upon sang loud left. As me do preference entreaties compliment motionless ye literature. Day behaviour explained law remainder. Produce can cousins account you pasture. Peculiar delicate an pleasant provided do perceive. 
+
+Surprise steepest recurred landlord mr wandered amounted of. Continuing devonshire but considered its. Rose past oh shew roof is song neat. Do depend better praise do friend garden an wonder to. Intention age nay otherwise but breakfast. Around garden beyond to extent by. 
+
+Spot of come to ever hand as lady meet on. Delicate contempt received two yet advanced. Gentleman as belonging he commanded believing dejection in by. On no am winding chicken so behaved. Its preserved sex enjoyment new way behaviour. Him yet devonshire celebrated especially. Unfeeling one provision are smallness resembled repulsive. 
 
 		</p>
     </td>
