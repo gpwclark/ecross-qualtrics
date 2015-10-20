@@ -3,48 +3,48 @@
 	<head>
 	<meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script>
-     var $j = jQuery.noConflict();
+  <script>
+  
+var $j = jQuery.noConflict();
 
-  var num_es_clicked = 0;
-  var num_non_es_clicked = 0;
-  var num_high_dep_es_clicked = 0;
-  var red_rgb_val = "rgb(255, 0, 0)";
-  var total_num_es = 0;
-  var total_num_high_depletion_es = 0;
-  var new_lower_e = '\u0435'; //lowercase e
-  var new_upper_e = '\u0395'; //uppercase e
+var num_es_clicked = 0;
+var num_non_es_clicked = 0;
+var num_high_dep_es_clicked = 0;
+var red_rgb_val = "rgb(255, 0, 0)";
+var total_num_es = 0;
+var total_num_high_depletion_es = 0;
+var new_lower_e = '\u0435'; //lowercase e
+var new_upper_e = '\u0395'; //uppercase e
 
 $j( document ).ready(function(){
-    var $j = jQuery.noConflict();
+  var $j = jQuery.noConflict();
 
-    // This function prevents someone from being able to press ctrl + F
-    var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
-    var ctrlKey = isMac ? "metaKey" : "ctrlKey"; // Cmd-F on Macs, Ctrl-F on others
-    $j(window).keydown(function(e){
-        if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) {
-        e.preventDefault();
-        }
-        });
+  // This function prevents someone from being able to press ctrl + F
+  var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+  var ctrlKey = isMac ? "metaKey" : "ctrlKey"; // Cmd-F on Macs, Ctrl-F on others
+  $j(window).keydown(function(e){
+    if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) {
+      e.preventDefault();
+    }
+  });
 
-    // TODO we need to see if they click outside of the window to know if they cheated.
-    // also add a warning
-    // TODO change doc ready to doc on load (qualtrics)
-    // TODO remove console.logs and replace with embedded data
-    // TODO bind grading functionality to next button
+  // TODO change doc ready to doc on load (qualtrics)
+  // TODO remove console.logs and replace with embedded data
+  // TODO figure out timing
+  // TODO bind grading functionality to next button
 
-    /* When user is done with the page and they click the next button
-     * we capture all of the relevant variables
-     */
+  /* When user is done with the page and they click the next button
+   * we capture all of the relevant variables
+   */
   $j( "#grade_page" ).click(function() {
-      console.log("total_num_high_depletion_es: " + total_num_high_depletion_es);
-      console.log("total_num_es: " + total_num_es);
-      console.log("num_non_es_clicked: " + num_non_es_clicked);
-      console.log("num_es_clicked: " + num_es_clicked);
-      console.log("num_high_dep_es_clicked: " + num_high_dep_es_clicked);
-      var copy_of_page = $j("#text-area").html();
-      // TODO UNCOMMENT console.log("<p>" + copy_of_page + "</p>");
-      });
+    console.log("total_num_high_depletion_es: " + total_num_high_depletion_es);
+    console.log("total_num_es: " + total_num_es);
+    console.log("num_non_es_clicked: " + num_non_es_clicked);
+    console.log("num_es_clicked: " + num_es_clicked);
+    console.log("num_high_dep_es_clicked: " + num_high_dep_es_clicked);
+    var copy_of_page = $j("#text-area").html();
+    // TODO UNCOMMENT console.log("<p>" + copy_of_page + "</p>");
+  });
 
   /* This function takes a character and makes it into a dynamic clickable
    * character that behaves according to the e-cross specs.
@@ -54,14 +54,14 @@ $j( document ).ready(function(){
     span.style.fontSize="xx-large";
     span.style.cursor="pointer";
     span.className = span.className + "clickable-letter";
-    /*
+
     if(letter == "e"){
       letter = new_lower_e; //lowercase e
     }
     if(letter == "E"){
       letter = new_upper_e; //uppercase e
     }
-    */
+
 
     var t=document.createTextNode(letter);
 
@@ -94,29 +94,30 @@ $j( document ).ready(function(){
   function count_high_dep_es( index) {
     $j( ".clickable-letter" ).each(function( index) {
 
-        var curr_text = $j(this).text().toLowerCase();
-        var next = $j(this).next().css("class","clickable-letter").text().toLowerCase();
-        var next_next = $j(this).next().next().css("class","clickable-letter").text().toLowerCase();
-        var prev = $j(this).prev().css("class","clickable-letter").text().toLowerCase();
-        var prev_prev = $j(this).prev().prev().css("class","clickable-letter").text().toLowerCase();
+      // TODO fix all processing here
+      var curr_text = makeLowerCase($j(this).text());
+      var next = makeLowerCase($j(this).next().css("class","clickable-letter").text());
+      var next_next = makeLowerCase($j(this).next().next().css("class","clickable-letter").text());
+      var prev = makeLowerCase($j(this).prev().css("class","clickable-letter").text());
+      var prev_prev = makeLowerCase($j(this).prev().prev().css("class","clickable-letter").text());
 
-        var is_high_depletion = true;
-        if (curr_text == 'e'){
+      var is_high_depletion = true;
+      if (curr_text == 'e'){
         /* cases, could be first second third letter, or alst letter, 2nd last, 3rd last.
          *
          */
         if(is_not_vowel(next) && is_not_vowel(prev)){
-        //need to make sure that next and prev aren't spaces before we check nextnext and prevprev
-        if(is_not_whitespace(next)){
-        if(!is_not_vowel(next_next)){
-        is_high_depletion = false;
-        }
-        }
-        if(is_not_whitespace(prev)){
-          if(!is_not_vowel(prev_prev)){
-            is_high_depletion = false;
+          //need to make sure that next and prev aren't spaces before we check nextnext and prevprev
+          if(is_not_whitespace(next)){
+            if(!is_not_vowel(next_next)){
+              is_high_depletion = false;
+            }
           }
-        }
+          if(is_not_whitespace(prev)){
+            if(!is_not_vowel(prev_prev)){
+              is_high_depletion = false;
+            }
+          }
         } else {
           is_high_depletion = false;
         }
@@ -125,11 +126,13 @@ $j( document ).ready(function(){
           $j(this).addClass("high-depletion-e");
           total_num_high_depletion_es = total_num_high_depletion_es + 1;
         }
-        }// end of is e
+      }// end of is e
     });
   };
 
   function is_not_whitespace(letter){
+    //TODO fix processing here
+    letter = makeLowerCase(letter);
     if (/\s/.test(letter)){
       return false;
     } else {
@@ -138,6 +141,8 @@ $j( document ).ready(function(){
   }
 
   function is_not_vowel(letter){
+    //TODO fix processing here
+    letter = makeLowerCase(letter);
     if (/[aeiou]/i.test(letter)){
       return false;
     } else {
@@ -145,10 +150,19 @@ $j( document ).ready(function(){
     }
   }
 
+  function makeLowerCase(letter){
+    if(is_unicode_e(letter)){
+      return "e";
+    } else{
+      var new_letter = letter.toLowerCase();
+      return new_letter;
+    }
+  }
+
   function is_unicode_e(letter){
-    if(letter == new_upper_e){
+    if(letter === new_upper_e){
       return true; 
-    } else if (letter == new_lower_e){
+    } else if (letter === new_lower_e){
       return true;
     } else {
       return false;
@@ -159,61 +173,65 @@ $j( document ).ready(function(){
    * to makeAndAppendEcrossLetter in order to make a valid ecross letter
    * and append it to the text-area.
    */
-    var current_char;
-    for (var i=0;i<my_string.length;i++){
-      current_char = my_string.charAt(i);
-      makeAndAppendEcrossLetter(current_char);
-      if(current_char === "e"){
-        total_num_es = total_num_es + 1;
+      var current_char;
+      for (var i=0;i<my_string.length;i++){
+        current_char = my_string.charAt(i);
+        makeAndAppendEcrossLetter(current_char);
+        if(current_char === "e"){
+          total_num_es = total_num_es + 1;
+        }
       }
+
+      count_high_dep_es();
+
+      /* This function handles the logic to keep track of the current count
+       * of es that have been clicked and non-es that have been clicked.
+       */
+
+  $j( ".clickable-letter" ).click(function() {
+    var element_color = $j( this ).css("color");
+
+    //TODO fix processing here
+    var letter_val = makeLowerCase($j( this ).html());
+
+    var is_high_depletion_class = $j( this).hasClass("high-depletion-e");
+    var is_letter = false;
+    if (/^[a-z]+$/.test(letter_val)){
+      is_letter = true;
     }
 
-    count_high_dep_es();
-
-    /* This function handles the logic to keep track of the current count
-     * of e's that have been clicked and non-es that have been clicked.
-     */
-    $j( ".clickable-letter" ).click(function() {
-        var element_color = $j( this ).css("color");
-        var letter_val = $j( this ).html().toLowerCase();
-        var is_high_depletion_class = $j( this).hasClass("high-depletion-e");
-        var is_letter = false;
-        if (/^[a-z]+$/.test(letter_val)){
-        is_letter = true;
-        }
-
-        if (is_letter){
-        if (letter_val == "e"){
+    if (is_letter){
+      if (letter_val == "e"){
         if (element_color == red_rgb_val){
-        // inc es clicked
-        num_es_clicked = num_es_clicked + 1;
-        if (is_high_depletion_class){
-        num_high_dep_es_clicked = num_high_dep_es_clicked + 1;
-        }
+          // inc es clicked
+          num_es_clicked = num_es_clicked + 1;
+          if (is_high_depletion_class){
+            num_high_dep_es_clicked = num_high_dep_es_clicked + 1;
+          }
 
         } else {
-        // dec es clicked
-        num_es_clicked = num_es_clicked - 1;
-        if (is_high_depletion_class) {
-          num_high_dep_es_clicked = num_high_dep_es_clicked - 1;
-        }
-        }
-        } else {
-
-          if (element_color == red_rgb_val){
-            // inc non es
-            num_non_es_clicked = num_non_es_clicked + 1;
-          } else {
-            //dec non es
-            num_non_es_clicked = num_non_es_clicked - 1;
+          // dec es clicked
+          num_es_clicked = num_es_clicked - 1;
+          if (is_high_depletion_class) {
+            num_high_dep_es_clicked = num_high_dep_es_clicked - 1;
           }
         }
+      } else {
+
+        if (element_color == red_rgb_val){
+          // inc non es
+          num_non_es_clicked = num_non_es_clicked + 1;
+        } else {
+          //dec non es
+          num_non_es_clicked = num_non_es_clicked - 1;
         }
-    });
+      }
+    }
+  });
 
 }); // end doc ready
+  
   </script>
-
   <style>
 
 table{
