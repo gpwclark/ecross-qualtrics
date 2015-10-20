@@ -17,3 +17,11 @@ Need to be able to control how long participants are given to complete each para
 
   - regex to find high depletion es that people should not cross out
      /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i
+
+
+- NOTE:
+  - You must include jquery in the survey in order for this function to work
+    http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/javascript-in-qualtrics/#InsertingJavaScriptIntoASurvey
+  - This link will help you figure out where to go, essentially you need to follow these instructions and insert this tag into the header
+    of the survey:
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
