@@ -102,7 +102,11 @@ $j( document ).ready(function(){
   
 
   /*
-   * TODO COMMENT THIS FUNCTION
+   * This function simply deduces which (if any) of the e's (lower and upper case)
+   * are "high depletion" which just means they are not within two characters of
+   * a vowel (not including spaces and newlines). It then gives the span objects
+   * that qualify a high depletion class (for grading) and increments the total
+   * count of high depletion e's.
    */
   function count_high_dep_es( index) {
     $j( ".clickable-letter" ).each(function( index) {
