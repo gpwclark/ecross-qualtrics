@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>README</title>
+        <meta name="description" content="">
+    </head>
+    <body>
+    <h1> Ecross-Qualtrics - How To Use </h1>
+
+    <ol>
+      <li> <h3> Preliminary Steps to Enable Javascript Libraries </h3>
+        You must include jquery in the survey in order for this function to work
+        <a =href"http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/javascript-in-qualtrics/#InsertingJavaScriptIntoASurvey"> This link will help you figure out where to go</a>
+        , essentially you need to follow these instructions and insert this tag into the header of the survey:
+
+    "&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;"
+    <br>
+    <br>
+    </li>
+    <li> <h3> Getting the Code in the Survey</h3>
+      <ul>
+      <li>
+      There are two files that need to be copied and pasted into qualtrics, the first "qualtrics.html" needs to be
+      copied and pasted into the html of the text question shown here: 
+      <br>
+      <br>
+      <br>
+<a href="http://tinypic.com?ref=3132fxc" target="_blank"><img src="http://i58.tinypic.com/3132fxc.png" border="0" alt="Image and video hosting by TinyPic"></a>
+      </li>
+
+      </ul>
+      <li>
+      The second file is "qualtrics.js" first you get the JavaScript window to open, then you delete the boilerplate
+      code they have inserted, and then you copy and paste qualtrics.js in the window as illustrated below.
+      <br>
+      <br>
+      <br>
+      <ul>
+        <li> <a href="http://tinypic.com?ref=2mze4jn" target="_blank"><img src="http://i58.tinypic.com/2mze4jn.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+      <br>
+      <br>
+      <br>
+      <li><a href="http://tinypic.com?ref=116nkw3" target="_blank"><img src="http://i61.tinypic.com/116nkw3.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+      <br>
+      <br>
+      <br>
+      <li><a href="http://tinypic.com?ref=1ou1w9" target="_blank"><img src="http://i57.tinypic.com/1ou1w9.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+      <br>
+      <br>
+      <br>
+      </ul>
+      </li>
+      <li> <h3> Using the Code Properly in Qualtrics </h3> 
+      
+      
+      </li>
+
+      <li>
+      <h3> Specifications Computerized E-Cross Task </h3>
+
+
+- Participants must be able to click on a letter to “cross” it out, meaning a small x or slash should appear through the letter.
+The program needs to prevent participants from using control+F to find the es.
+
+-	Participants run through a shorter practice round with one paragraph, then the longer manipulation round with a different paragraph.
+Need to be able to control how long participants are given to complete each paragraph.
+
+-	Must have data on:
+  -	Number of es successfully crossed out in practice round and low depletion
+  - Number of other letters crossed out
+  - Number of correct es in high depletion round crossed out (would be nice to have the specific es that participants shouldn’t cross out marked in the data to avoid having to return to the paragraph to determine which those are)-Total clicks made on page?
+
+  - regex to find high depletion es that people should not cross out
+     /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i
+
+
+</li>
+</ol>
