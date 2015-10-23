@@ -53,6 +53,7 @@ var new_upper_e = '\u0395'; //uppercase e
   count_high_dep_es();
 
   var time_in_seconds = $j("#time_in_seconds").html();
+  time_in_seconds = time_in_seconds.trim();
   var time_in_milliseconds = 1000 * Number(time_in_seconds);
 
   setTimeout(grade, time_in_milliseconds);

@@ -1,80 +1,224 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>README</title>
-        <meta name="description" content="">
-    </head>
-    <body>
-    <h1> Ecross-Qualtrics - How To Use </h1>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>README</title>
+<meta name="description" content="">
+</head>
+<body>
+<h1> Ecross-Qualtrics - How To Use </h1>
 
-    <ol>
-      <li> <h3> Preliminary Steps to Enable Javascript Libraries </h3>
-        You must include jquery in the survey in order for this function to work
-        <a =href"http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/javascript-in-qualtrics/#InsertingJavaScriptIntoASurvey"> This link will help you figure out where to go</a>
-        , essentially you need to follow these instructions and insert this tag into the header of the survey:
-
-    "&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;"
+<ol>
+  <li> <h2> Overview </h2>
+  This program allows you to use the popular e-cross paradigm from psychology in Qualtrics. It keeps track of 6 important variables
+  the number of "e"s in the text that you provide, the number of high depletion "e"s in the text you provide (high depletion is defined as
+  any upper or lowercase "e" that not within two characters of any vowel within a given word), the number of letters that an individual clicked,
+  the number of "e"s that an individual actually clicks on, and the number of high depletion "e"s that an individual clicked on. I also include
+  an exact copy of the paragraph after the individual is done with the task, this is for your records. As an added bonus, it is impossible
+  for a user to cheat. They can not use Ctrl+F to "Find" the "e"s in the paragraph you provide, nor can they go to their browser's menu and
+  use the "Find" function that way.
+  </li>
+  <li> <h3> Customizing the qualtrics.html file for your experiment</h3>
+  There are two things that you must change in the qualtrics.html file before you use this software. You invariably have two requirements,
+  1. The actual paragraph of text the user will use, and 2. The amount of time a participant will have to perform the task.
+  <ol>
+    <li>
+    To set the "time" open up the qualtrics.html and change this value to the number of seconds <strong>( which MUST be an integer ) </strong>
+    you want the particpant to have for the task.
+    <br>
+    <br>
+    <br>
+    <a href="http://tinypic.com?ref=34iqofo" target="_blank"><img src="http://i59.tinypic.com/34iqofo.png" border="0" alt="Image and video hosting by TinyPic"></a>
+    <br>
     <br>
     <br>
     </li>
-    <li> <h3> Getting the Code in the Survey</h3>
-      <ul>
-      <li>
-      There are two files that need to be copied and pasted into qualtrics, the first "qualtrics.html" needs to be
-      copied and pasted into the html of the text question shown here: 
+    <li>
+    Simply copy and paste the paragraph of text you want the participant to see here. 
+    <br>
+    <br>
+    <br>
+    <a href="http://tinypic.com?ref=2mmvgqr" target="_blank"><img src="http://i58.tinypic.com/2mmvgqr.png" border="0" alt="Image and video hosting by TinyPic"></a>
+    <br>
+    <br>
+    <br>
+    </li>
+
+  </ol>
+
+  </li>
+  <li> <h3> Preliminary Steps to Enable Javascript Libraries </h3>
+  You must include jquery in the survey in order for this function to work
+  <a href="http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/javascript-in-qualtrics/#InsertingJavaScriptIntoASurvey"> This link will help you figure out where to go</a>
+  , essentially you need to follow these instructions and insert this tag into the header of the survey:
+  <br>
+  <br>
+  <strong>"&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;"</strong>
+  <br>
+  <br>
+  Everything above NOT including the quotatation marks at the beginning and end.
+  <br>
+  <br>
+  </li>
+  <li> <h3> Getting the Code in the Survey</h3>
+  <ul>
+    <li>
+    There are two files that need to be copied and pasted into qualtrics, the first "qualtrics.html" needs to be
+    copied and pasted into the html of the text question shown here: 
+    <br>
+    <br>
+    <br>
+    <a href="http://tinypic.com?ref=3132fxc" target="_blank"><img src="http://i58.tinypic.com/3132fxc.png" border="0" alt="Image and video hosting by TinyPic"></a>
+    </li>
+
+  </ul>
+  <li>
+  The second file is "qualtrics.js" first you get the JavaScript window to open, then you delete the boilerplate
+  code they have inserted, and then you copy and paste qualtrics.js in the window as illustrated below.
+  <br>
+  <br>
+  <br>
+  <ul>
+    <li> <a href="http://tinypic.com?ref=2mze4jn" target="_blank"><img src="http://i58.tinypic.com/2mze4jn.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+    <br>
+    <br>
+    <br>
+    <li><a href="http://tinypic.com?ref=116nkw3" target="_blank"><img src="http://i61.tinypic.com/116nkw3.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+    <br>
+    <br>
+    <br>
+    <li><a href="http://tinypic.com?ref=1ou1w9" target="_blank"><img src="http://i57.tinypic.com/1ou1w9.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+    <br>
+    <br>
+    <br>
+  </ul>
+  </li>
+  <li> <h3> Using the Code Properly in Qualtrics </h3> 
+  <ul>
+    <li>
+    In order for the code to be reported by Qualtrics you need to create a special block
+    in the survey flow. In the "Edit Survey" tab select "Survey Flow". Make sure to do this
+    below the block that has the actual ecross task question in it (primarily for organization).
+    <br>
+    <br>
+    <br>
+    <a href="http://tinypic.com?ref=wikk14" target="_blank"><img src="http://i60.tinypic.com/wikk14.png" border="0" alt="Image and video hosting by TinyPic"></a>
+    <br>
+    <br>
+    <br>
+
+    </li>
+    <li>
+
+    Here is the caveat, the variable names that you give in the "Embedded Data" fields, must be the same exact strings
+    that are in the actual Javascript snippet. This picture shows what an "Embedded Data" block might look like.
+    <br>
+    <br>
+    <br>
+    <a href="http://tinypic.com?ref=r7t9qq" target="_blank"><img src="http://i61.tinypic.com/r7t9qq.png" border="0" alt="Image and video hosting by TinyPic"></a>
+    <br>
+    <br>
+    <br>
+
+    </li>
+
+    <li>
+    The "Embedded Data" field will <strong> always </strong> have 6 variables... Here is what they look like in the actual code.
+    <br>
+    <br>
+    <br>
+    <a href="http://tinypic.com?ref=24wwvtz" target="_blank"><img src="http://i60.tinypic.com/24wwvtz.png" border="0" alt="Image and video hosting by TinyPic"></a>
+    <br>
+    <br>
+    <br>
+    </li>
+
+    <li>
+    The tricky part is that you are going to have to change the names in the "Embedded Data" block in the survey flow
+    AND those names must correspond to the names in quotations in the JavaScript snippet. This is because if you implement
+    the ecross paradigm properly you need a practice round, a low depletion round, and a high depletion round. This means
+    that in your survey flow you are going to have this JavaScript snippet 3 times. Each of the three instances of the
+    JavaScript snippet will need 3 corresponding "Embedded Data" blocks. I will refer to the "Embedded Data" block
+    and JavaScript snippet as pairs. <strong> IF </strong> each of your pairs do not uniquely name the variables,
+    then you will not get the right data. For instance if two of you pairs each have the same names for all 6 variables
+    (as labeled in the JavaScript snippet and in the "Embedded Data" block) then you will get two copies of whichever 
+    block executed second, because the second block will overwrite the variable names. Thus you are going to need
+    to change the names of each of the variables in the pair. I recommend doing it like this:
+    <ul>
+      For the JavaScript code:
       <br>
       <br>
       <br>
-<a href="http://tinypic.com?ref=3132fxc" target="_blank"><img src="http://i58.tinypic.com/3132fxc.png" border="0" alt="Image and video hosting by TinyPic"></a>
+      <a href="http://tinypic.com?ref=351iq0i" target="_blank"><img src="http://i61.tinypic.com/351iq0i.png" border="0" alt="Image and video hosting by TinyPic"></a>
+      <br>
+      <br>
+      <br>
       </li>
-
-      </ul>
       <li>
-      The second file is "qualtrics.js" first you get the JavaScript window to open, then you delete the boilerplate
-      code they have inserted, and then you copy and paste qualtrics.js in the window as illustrated below.
+      For the Embedded Data block.
       <br>
       <br>
       <br>
-      <ul>
-        <li> <a href="http://tinypic.com?ref=2mze4jn" target="_blank"><img src="http://i58.tinypic.com/2mze4jn.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
+      <a href="http://tinypic.com?ref=sv3no3" target="_blank"><img src="http://i62.tinypic.com/sv3no3.png" border="0" alt="Image and video hosting by TinyPic"></a>
       <br>
       <br>
       <br>
-      <li><a href="http://tinypic.com?ref=116nkw3" target="_blank"><img src="http://i61.tinypic.com/116nkw3.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
-      <br>
-      <br>
-      <br>
-      <li><a href="http://tinypic.com?ref=1ou1w9" target="_blank"><img src="http://i57.tinypic.com/1ou1w9.png" border="0" alt="Image and video hosting by TinyPic"></a> </li>
-      <br>
-      <br>
-      <br>
-      </ul>
       </li>
-      <li> <h3> Using the Code Properly in Qualtrics </h3> 
-      
-      
-      </li>
-
       <li>
-      <h3> Specifications Computerized E-Cross Task </h3>
+      I suggest using this scheme, append the variable names in the pairs with an "_1" for the first instance, an "_2" for the second
+      instance, and an "_3" for the third instance.
+      </li>
+    </ul>
 
+  </ul>
+  </li>
 
-- Participants must be able to click on a letter to “cross” it out, meaning a small x or slash should appear through the letter.
-The program needs to prevent participants from using control+F to find the es.
+  <li>
+  <h3> Specifications Computerized E-Cross Task </h3>
 
--	Participants run through a shorter practice round with one paragraph, then the longer manipulation round with a different paragraph.
-Need to be able to control how long participants are given to complete each paragraph.
+  <ul>
+    <li> 
+    Participants must be able to click on a letter to “cross” it out, meaning a small x or slash should appear through the letter.
+    The program needs to prevent participants from using control+F to find the es.
+    </li>
+    <li> 
+  	Participants run through a shorter practice round with one paragraph, then the longer manipulation round with a different paragraph.
+  Need to be able to control how long participants are given to complete each paragraph.
+    </li>
 
--	Must have data on:
-  -	Number of es successfully crossed out in practice round and low depletion
-  - Number of other letters crossed out
-  - Number of correct es in high depletion round crossed out (would be nice to have the specific es that participants shouldn’t cross out marked in the data to avoid having to return to the paragraph to determine which those are)-Total clicks made on page?
+    <li>
+  	Must have data on:
+    </li>
+    <li>
+    <ul>
+    <li>
+  	Number of es successfully crossed out in practice round and low depletion
+    </li>
+    <li>
+  	Number of es in the paragraph
+    </li>
+    <li>
+  	Number of high depeltion es in the paragraph
+    </li>
+    <li>
+   Number of other letters crossed out
+    </li>
+    <li>
+   Number of correct es in high depletion round crossed out 
+    </li>
+    <li>
+    A snapshot of the paragraph after a user has completed the task
+    </li>
+</ul>
+  </li>
 
+</ul>
+<!--
   - regex to find high depletion es that people should not cross out
-     /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i
+  /(([aioue].|[aioue])e|e([aioue]|.[aioue]))/i
+  -->
 
 
-</li>
+  </li>
 </ol>
