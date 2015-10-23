@@ -15,7 +15,7 @@ var new_upper_e = '\u0395'; //uppercase e
 // IMPORTANT SET UP FUNCTIONS
   var $j = jQuery.noConflict();
   qualtrics.disablePreviousButton();
-  qualtrics.disableNextButton();
+  qualtrics.hideNextButton();
 
   // This function prevents someone from being able to press ctrl + F
   var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
@@ -244,7 +244,6 @@ var new_upper_e = '\u0395'; //uppercase e
    * in the "embedded data" block in the survey flow, check the README for an explanation.
    */
   function grade(){
-    qualtrics.enableNextButton(); 
     Qualtrics.SurveyEngine.setEmbeddedData("total_num_high_depletion_es", total_num_high_depletion_es);
     Qualtrics.SurveyEngine.setEmbeddedData("total_num_es", total_num_es);
     Qualtrics.SurveyEngine.setEmbeddedData("num_non_es_clicked", num_non_es_clicked);
